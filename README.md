@@ -50,3 +50,129 @@ This is an Express server built with TypeScript, designed to handle backend func
 - **Response**:
   ```json
   true
+
+POST /submit
+Description: Submits a new form entry.
+Request Body:
+json
+Copy code
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "phone": "1234567890",
+  "github_link": "https://github.com/johndoe",
+  "stopwatch_time": "00:10:00"
+}
+Response:
+json
+Copy code
+{
+  "message": "Submission saved successfully"
+}
+GET /read
+Description: Reads the form entry at the specified index.
+Query Parameters:
+index (number): The index of the submission to read.
+Response:
+json
+Copy code
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "phone": "1234567890",
+  "github_link": "https://github.com/johndoe",
+  "stopwatch_time": "00:10:00"
+}
+DELETE /delete
+Description: Deletes the form entry at the specified index.
+Query Parameters:
+index (number): The index of the submission to delete.
+Response:
+json
+Copy code
+{
+  "message": "Submission deleted successfully"
+}
+Project Structure
+plaintext
+Copy code
+express-typescript-server/
+├── node_modules/
+├── src/
+│   ├── routes.ts
+│   └── index.ts
+├── .gitignore
+├── package.json
+├── tsconfig.json
+└── README.md
+Running the Server
+Start the development server:
+
+sh
+Copy code
+npm run dev
+The server will be running on http://localhost:3000.
+
+License
+This project is licensed under the MIT License.
+
+vbnet
+Copy code
+
+### Ensure Backend Code Has All Required Endpoints
+
+Here's the complete `src/routes.ts` file to ensure it matches the README documentation:
+
+```typescript
+import express, { Request, Response } from 'express';
+import fs from 'fs';
+import path from 'path';
+
+const router = express.Router();
+const dbPath = path.join(__dirname, '..', 'db.json');
+
+// Ensure the db.json file exists
+if (!fs.existsSync(dbPath)) {
+    fs.writeFileSync(dbPath, JSON.stringify({ submissions: [] }, null, 2));
+}
+
+router.get('/ping', (req: Request, res: Response) => {
+    res.send(true);
+});
+
+router.post('/submit', (req: Request, res: Response) => {
+    const { name, email, phone, github_link, stopwatch_time } = req.body;
+    const submission = { name, email, phone, github_link, stopwatch_time };
+
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+    db.submissions.push(submission);
+    fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+
+    res.json({ message: 'Submission saved successfully' });
+});
+
+router.get('/read', (req: Request, res: Response) => {
+    const index = parseInt(req.query.index as string);
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+
+    if (index >= 0 && index < db.submissions.length) {
+        res.json(db.submissions[index]);
+    } else {
+        res.status(404).json({ error: 'Submission not found' });
+    }
+});
+
+router.delete('/delete', (req: Request, res: Response) => {
+    const index = parseInt(req.query.index as string);
+    const db = JSON.parse(fs.readFileSync(dbPath, 'utf8'));
+
+    if (index >= 0 && index < db.submissions.length) {
+        db.submissions.splice(index, 1);
+        fs.writeFileSync(dbPath, JSON.stringify(db, null, 2));
+        res.json({ message: 'Submission deleted successfully' });
+    } else {
+        res.status(404).json({ error: 'Submission not found' });
+    }
+});
+
+export default router;
