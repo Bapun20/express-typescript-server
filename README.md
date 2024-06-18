@@ -20,25 +20,25 @@ This is an Express server built with TypeScript, designed to handle backend func
 
 1. Clone the repository:
 
-    ```sh
+    ```
     git clone https://github.com/Bapun20/express-typescript-server.git
     ```
 
 2. Navigate to the project directory:
 
-    ```sh
+    ```
     cd express-typescript-server
     ```
 
 3. Install dependencies:
 
-    ```sh
+    ```
     npm install
     ```
 
 4. Start the server:
 
-    ```sh
+    ```
     npm run dev
     ```
 
@@ -94,8 +94,6 @@ Copy code
   "message": "Submission deleted successfully"
 }
 Project Structure
-plaintext
-Copy code
 express-typescript-server/
 ├── node_modules/
 ├── src/
@@ -108,20 +106,13 @@ express-typescript-server/
 Running the Server
 Start the development server:
 
-sh
-Copy code
+
 npm run dev
 The server will be running on http://localhost:3000.
 
-License
-This project is licensed under the MIT License.
-
-vbnet
-Copy code
-
 ### Ensure Backend Code Has All Required Endpoints
 
-Here's the complete `src/routes.ts` file to ensure it matches the README documentation:
+Here's the complete `src/routes.ts` file to 
 
 ```typescript
 import express, { Request, Response } from 'express';
