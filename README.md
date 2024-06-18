@@ -1,6 +1,6 @@
-# Backend Server
+# Express TypeScript Server
 
-This is an Express server made with TypeScript that handles the backend functionality for the desktop application.
+This is an Express server built with TypeScript, designed to handle backend functionality for a desktop application.
 
 ## Features
 
@@ -10,6 +10,13 @@ This is an Express server made with TypeScript that handles the backend function
 - **Delete Endpoint**: Deletes a specific submission by index.
 
 ## Installation
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (version 14 or later)
+- [npm](https://www.npmjs.com/) (version 6 or later)
+
+### Steps
 
 1. Clone the repository:
 
@@ -37,25 +44,9 @@ This is an Express server made with TypeScript that handles the backend function
 
 ## Endpoints
 
-- **GET /ping**: Returns `true` if the server is running.
-- **POST /submit**: Submits a new form entry.
-  - Request body:
-    ```json
-    {
-      "name": "John Doe",
-      "email": "johndoe@example.com",
-      "phone": "1234567890",
-      "github_link": "https://github.com/johndoe",
-      "stopwatch_time": "00:10:00"
-    }
-    ```
-- **GET /read?index=<index>**: Reads the form entry at the specified index.
-- **DELETE /delete?index=<index>**: Deletes the form entry at the specified index.
+### GET /ping
 
-## Contributing
-
-Contributions are welcome! Please create a pull request or open an issue to discuss changes.
-
-## License
-
-This project is licensed under the MIT License.
+- **Description**: Returns `true` if the server is running.
+- **Response**:
+  ```json
+  true
